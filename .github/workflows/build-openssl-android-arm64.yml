@@ -13,8 +13,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     env:
-      ANDROID_NDK_VERSION: r26d
-      API_LEVEL: 29
+      ANDROID_NDK_VERSION: r27d
+      API_LEVEL: 21
       TARGET: android-arm64
 
     steps:
@@ -43,18 +43,20 @@ jobs:
 
       - name: Configure OpenSSL (static, arm64, clang)
         run: |
+          export ANDROID_NDK_ROOT=${ANDROID_NDK_HOME}
           export PATH="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
 
           export ANDROID_API=${API_LEVEL}
-          export CC=aarch64-linux-android${ANDROID_API}-clang
-          export CXX=aarch64-linux-android${ANDROID_API}-clang++
-
+          # export CC=aarch64-linux-android${ANDROID_API}-clang
+          # export CXX=aarch64-linux-android${ANDROID_API}-clang++
+          
+          export CPPFLAGS="-DANDROID -fPIC"
           export CFLAGS="-fPIC"
           export LDFLAGS="-static"
 
           cd openssl-${{ github.event.inputs.openssl_version }}
 
-          ./Configure android64-aarch64 \
+          ./Configure android-arm64 \
             no-shared \
             no-tests \
             no-dso \
