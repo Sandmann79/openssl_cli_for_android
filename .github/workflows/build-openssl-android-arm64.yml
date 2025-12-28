@@ -41,12 +41,17 @@ jobs:
           curl -fsSL https://www.openssl.org/source/openssl-${{ github.event.inputs.openssl_version }}.tar.gz -o openssl.tar.gz
           tar xzf openssl.tar.gz
 
-      - name: Configure OpenSSL (static, no shared)
+      - name: Configure OpenSSL (static, clang, arm64)
         run: |
           export PATH="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
+          export ANDROID_API=${API_LEVEL}
+
+          export CC=aarch64-linux-android${ANDROID_API}-clang
+          export CXX=aarch64-linux-android${ANDROID_API}-clang++
+
           cd openssl-${{ github.event.inputs.openssl_version }}
 
-          ./Configure ${TARGET} \
+          ./Configure android-arm64-clang \
             no-shared \
             no-tests \
             no-dso \
