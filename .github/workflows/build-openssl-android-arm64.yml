@@ -47,8 +47,8 @@ jobs:
           export PATH="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
 
           export ANDROID_API=${API_LEVEL}
-          # export CC=aarch64-linux-android${ANDROID_API}-clang
-          # export CXX=aarch64-linux-android${ANDROID_API}-clang++
+          export CC=aarch64-linux-android${ANDROID_API}-clang
+          export CXX=aarch64-linux-android${ANDROID_API}-clang++
           
           export CPPFLAGS="-DANDROID -fPIC"
           export CFLAGS="-fPIC"
