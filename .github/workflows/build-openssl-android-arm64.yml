@@ -44,8 +44,8 @@ jobs:
       - name: Configure OpenSSL (static, arm64, clang)
         run: |
           export PATH="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
-          export ANDROID_API=${API_LEVEL}
 
+          export ANDROID_API=${API_LEVEL}
           export CC=aarch64-linux-android${ANDROID_API}-clang
           export CXX=aarch64-linux-android${ANDROID_API}-clang++
 
@@ -54,7 +54,7 @@ jobs:
 
           cd openssl-${{ github.event.inputs.openssl_version }}
 
-          ./Configure android-arm64 \
+          ./Configure android64-aarch64 \
             no-shared \
             no-tests \
             no-dso \
