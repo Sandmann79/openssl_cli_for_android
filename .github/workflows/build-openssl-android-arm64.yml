@@ -41,7 +41,7 @@ jobs:
           curl -fsSL https://www.openssl.org/source/openssl-${{ github.event.inputs.openssl_version }}.tar.gz -o openssl.tar.gz
           tar xzf openssl.tar.gz
 
-      - name: Configure OpenSSL (static, arm64, clang)
+      - name: Configure & Build OpenSSL (static, arm64, clang)
         run: |
           export ANDROID_NDK_ROOT=${ANDROID_NDK_HOME}
           export PATH="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-x86_64/bin:$PATH"
@@ -64,9 +64,6 @@ jobs:
             no-unit-test \
             --prefix=$PWD/out
 
-      - name: Build OpenSSL
-        run: |
-          cd openssl-${{ github.event.inputs.openssl_version }}
           make -j$(nproc)
           make install_sw
 
